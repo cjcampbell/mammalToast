@@ -11,10 +11,7 @@ load(paste0(wd$bin, "massdat.Rda"))
 
 # Looking at density data -------------------------------------------------
 
-
-
 # Note that these are either single data points or ranges, so I'm not getting too analytical here.
-#
 
 mam_density_tab <- read.table( paste0(wd$data, "brassey_sellers_2014"), sep = ",", header = TRUE ) %>%
   tidyr::separate("density_kg_per_m3",
@@ -31,7 +28,6 @@ mam_density_tab <- read.table( paste0(wd$data, "brassey_sellers_2014"), sep = ",
     ) %>%
   melt(id.vars = "Species", value.name = "density_kg_per_m3")
 
-
 mam_density_tab %>%
   ggplot() +
   geom_boxplot(aes(y = Species, x = density_kg_per_m3)) +
@@ -39,31 +35,11 @@ mam_density_tab %>%
 
 guesstimated_mammal_density <- mean(mam_density_tab$density_kg_per_m3)
 
-# My conversion -----------------------------------------------------------
+# Apply conversion:
+mammal_g_to_m3 <- function(x){ (x / 1000) / guesstimated_mammal_density}
 
 voldat <- massdat %>%
-  mutate( mass_estimation_kg =  mass_estimation / 1000 ) %>% 
-  mutate( vol_estimation_m3 = mass_estimation_kg / guesstimated_mammal_density)
+  mutate( vol_estimation_m3 = mass_estimation(mass_estimation_kg) )
 
 save(voldat, file = paste0(wd$bin, "voldat.Rda"))
 
-
-# Conversion --------------------------------------------------------------
-
-# 
-# 
-# # These authors used log10 transformed data ("Prior to log10 transformation the datasets did not meet the requirements for normality (Shapiro-Wilks test) and homoscedasticity (Breusch-Pagan test). Model results are therefore only reported for log10 transformed data.")
-# 
-# # OLS Results:
-# # log_bodymass_kg <-  (3.09*log_convex_hull_volume_m3) + 0.92
-# 
-# voldat <- massdat %>% 
-#  # mutate( log_bodymass_kg = log10( mass_estimation / 1000 ) ) %>% 
-#  # mutate( log_convex_hull_volume_m3 = (log_bodymass_kg - 0.92) / 3.09 ) %>% 
-#  # mutate( volume_m3 = 10^log_convex_hull_volume_m3 )
-#   
-#   mutate( volume_m3 = ((mass_estimation / 1000) - 0.92) / 3.09 )
-# 
-# hist(voldat$volume_m3)
-# 
-# save(voldat, file = paste0(wd$bin, "voldat.Rda"))
