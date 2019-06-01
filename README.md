@@ -21,7 +21,7 @@ Mammals were classified as larger or smaller than a toaster if their estimated b
 
 <figure><img src = "https://github.com/cjcampbell/mammalToast/blob/master/figs/volume_hist_simple.png"> </figure>
 <figcaption>
-Estimated volumes of all extant mammals, grouped by order. Red vertical line shows average toaster volume.
+<i>Figure 1: Estimated volumes of all extant mammals, grouped by order. Red vertical line shows average toaster volume.</i>
 </figcaption>
 
 ## References
