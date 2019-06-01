@@ -20,11 +20,18 @@ g <- ggplot(voldat) +
   geom_vline(xintercept = toaster_vol, col = "red") +
   scale_x_log10(name = "Estimated volume (m3)", expand = c(0,0)) +
   scale_y_continuous(limits = c(0, 1750), expand = c(0,0 )) +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 5))
+
+ggsave(filename = paste0(wd$figs, "volume_hist_simple.png"), plot = g, units = "in", width = 6, height = 4)
+
+g2 <- g +
   theme(legend.position = "none")
 
 # Plot with plotly --
 require(plotly)
-ggplotly(g, tooltip = c("fill") )
+ggplotly(g2, tooltip = c("fill") )
 
 # Plot with phylopic --
 
