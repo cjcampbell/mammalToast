@@ -22,7 +22,7 @@ Mammals were classified as larger or smaller than a toaster if their estimated b
 
 ## Results
 
-90.6% of extant mammal species have body volumes larger than a toaster.
+90.6% of extant mammal species have body volumes smaller than a toaster.
 
 <figure><img src = "https://github.com/cjcampbell/mammalToast/blob/master/figs/volume_hist_simple.png"> </figure>
 <figcaption>
